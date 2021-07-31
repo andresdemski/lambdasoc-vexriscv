@@ -1,0 +1,8 @@
+-e git+https://github.com/lambdaconcept/lambdasoc.git#egg=lambdasoc
+-e git+https://github.com/enjoy-digital/litedram.git#egg=litedram
+-e git+https://github.com/enjoy-digital/litex.git#egg=litex
+-e git+https://github.com/lambdaconcept/minerva.git#egg=minerva
+-e git+https://github.com/nmigen/nmigen.git#egg=nmigen
+-e git+https://github.com/nmigen/nmigen-boards.git#egg=nmigen_boards
+-e git+https://github.com/nmigen/nmigen-soc.git#egg=nmigen_soc
+-e git+https://github.com/nmigen/nmigen-stdio.git#egg=nmigen_stdio

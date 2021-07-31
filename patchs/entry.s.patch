@@ -1,0 +1,18 @@
+diff --git a/src/arch/riscv/entry.S b/src/arch/riscv/entry.S
+index 91e8ac2..5328cd6 100644
+--- a/src/arch/riscv/entry.S
++++ b/src/arch/riscv/entry.S
+@@ -1,11 +1,11 @@
+-#define MIE_MEIE 	0x800
++#define MIE_MEIE 	0x880
+ 
+ 	.global _start
+ _start:
+ 	j reset_vector
+ 
+ reset_vector:
+-	la sp, _fstack
++	la sp, _fstack - 4
+ 	la t0, trap_vector
+ 	csrw mtvec, t0
+ 

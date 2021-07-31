@@ -1,0 +1,21 @@
+diff --git a/src/arch/Kconfig b/src/arch/Kconfig
+index 3562243..6f30703 100644
+--- a/src/arch/Kconfig
++++ b/src/arch/Kconfig
+@@ -8,11 +8,15 @@ config CPU_MINERVA
+ 	bool "Minerva"
+ 	select ARCH_RISCV
+ 
++config CPU_VEXRISCV
++	bool "Vexriscv"
++	select ARCH_RISCV
++
+ endchoice
+ 
+ config CPU_BYTEORDER
+ 	string
+-	default "little" if CPU_MINERVA
++	default "little"
+ 
+ config CPU_RESET_ADDR
+ 	hex "Reset vector address"
