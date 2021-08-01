@@ -113,29 +113,6 @@ class GenerateSoC(CPUSoC, Elaboratable):
         self.clk_freq = clk_freq
         self._sim = sim
 
-    def compile_fw(self, dir):
-        dirname = os.path.dirname(__file__)
-        os.makedirs(dir, exist_ok=True)
-        if isinstance(self.cpu, MinervaCPU):
-            prefix = 'minerva_'
-        elif isinstance(self.cpu, VexRiscvLinuxCPU):
-            prefix = 'vexriscv_'
-        else:
-            raise ValueError()
-        sources = [os.path.join(dirname, f) for f in [prefix + 'crt0.S', 'main.c']]
-        linker = os.path.join(dirname, 'linker.ld')
-        cmd = 'riscv64-unknown-elf-gcc -march=rv32ima -mabi=ilp32 -g -Os -Iinclude -T{} -nostdlib {} -o {}/{}'
-        cmd = cmd.format(linker, ' '.join(sources), dir, 'boot.elf')
-        subprocess.check_call(cmd.split(' '))
-        cmd = 'riscv64-unknown-elf-objcopy -O binary {dir:}/boot.elf {dir:}/boot.bin'
-        cmd = cmd.format(dir=dir)
-        subprocess.check_call(cmd.split(' '))
-        boot_bin = dir + "/boot.bin"
-        with open(boot_bin, "rb") as f:
-            words = iter(lambda: f.read(self.cpu.data_width // 8), b'')
-            boot_rom  = [int.from_bytes(w, self.cpu.byteorder) for w in words]
-        return boot_rom
-
     def load_fw(self, bin_filename):
         with open(bin_filename, "rb") as f:
             words = iter(lambda: f.read(self.cpu.data_width // 8), b'')
